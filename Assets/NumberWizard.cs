@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NumberWizard : MonoBehaviour {
     //Global scope for var in this instance
@@ -8,15 +9,15 @@ public class NumberWizard : MonoBehaviour {
     int min ;
     int guess;
 
+    int maxGuessesAllowed = 10;
+
+    public Text text;
     // Use this for initialization
     void Start () {
         StartGame();
 	}
 
    
-
-
-
     public void GuessHigher()
     {
         min = guess;
@@ -44,7 +45,11 @@ public class NumberWizard : MonoBehaviour {
     void NextGuess()
     {
         guess = (max + min) / 2;
-        print("Higher or lower than " + guess);
-        print("Up = higher, down = lower, return = equal.");
+        text.text = guess.ToString();
+        maxGuessesAllowed = maxGuessesAllowed - 1;
+        if(maxGuessesAllowed <= 0)
+        {
+            Application.LoadLevel("Win");
+        }
     }
 }
